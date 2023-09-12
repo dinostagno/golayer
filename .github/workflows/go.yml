@@ -1,0 +1,23 @@
+name: Build and Deploy Go App to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build Go App
+        run: go build -o app
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: .
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
